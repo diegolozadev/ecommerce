@@ -1,0 +1,53 @@
+.jd-slider{
+
+    position: relative;
+}
+
+.jd-slider .controller{
+
+    position: absolute;
+    bottom: 20px;
+    left: 0px;
+}
+
+.jd-slider .controller .indicate-area a:after{
+    border: 0 !important;
+    background-color: #eee !important;
+    box-shadow: 0px 0px 5px black;
+    width: 10px;
+    height: 10px;
+}
+
+.jd-slider .controller .indicate-area a.on:after{
+    border: 0 !important;
+    background-color: #fff !important;
+}
+
+.slide-area li{
+    position: relative;
+}
+
+.opt1 img, .opt2 img, .opt3 img{
+    position: absolute;
+}
+
+.opt1 .slideText{
+    position: absolute;
+}
+
+.opt2 .slideText{
+    position: absolute;
+    text-align: right;
+}
+
+.slideOpt h1{
+    font-family: 'Ubuntu Condensed', sans-serif;
+}
+
+.slideOpt h2{
+    font-family: 'Ubuntu Condensed', sans-serif;
+}
+
+.slideOpt h3{
+    font-family: 'Ubuntu Condensed', sans-serif;
+}
