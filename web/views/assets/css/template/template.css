@@ -22,9 +22,9 @@ a:link, a:visited, a:hover, a:active {
     color: white
 }
 
-.templateColor{
-    background-color: #47BAC1;
-    color: white;
+.templateColor,  a.templateColor{
+    background: #47BAC1 !important;
+    color: white !important;
 }
 
 .main-footer{

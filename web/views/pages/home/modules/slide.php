@@ -68,17 +68,27 @@
 
     </div>
 
-    <a class="prev" href="#">
+    <a class="prev d-none d-lg-block" href="#">
         <i class="fas fa-angle-left text-white px-2 py-5 rounded-right" style="background: rgba(0,0,0,.5);"></i>
         </a>
-        <a class="next" href="#">
+        <a class="next d-none d-lg-block" href="#">
         <i class="fas fa-angle-right text-white px-2 py-5 rounded-right" style="background: rgba(0,0,0,.5);"></i>
     </a>
 
-    <div class=controller>
-        <div class="indicate-area">
-        </div>
+    <div class="controller py-2">
+        <div class="indicate-area"></div>
     </div>
+
+</div>
+
+
+<div class="d-flex justify-content-center">
+
+    <a id="btnSlide" class="btn border-0 rounded-0 templateColor py-2" style="width:200px">
+
+        <i class="fa fa-angle-up"></i>
+
+    </a>
 
 </div>
 
