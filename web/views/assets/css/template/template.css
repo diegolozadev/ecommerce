@@ -1,6 +1,3 @@
-body{
-    font-family: 'Ubuntu', sans-serif;
-}
 
 .dropdown-toggle::after{
     display: none !important; /* Remove the arrow icon from the dropdown toggle */

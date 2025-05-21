@@ -1,6 +1,44 @@
 <?php
+/**
+ * Variabla Path
+ */
+    $path = TemplateController::path();
 
-$path = TemplateController::path();
+/**
+ * Solicitud GET de Template
+ */
+    $url = "templates?linkTo=active_template&equalTo=ok";
+    $method =  "GET";
+    $fields = array();
+    $template = CurlController::request($url,$method,$fields);
+    
+    if($template->status == 200){
+
+        $template = $template->results[0];
+        
+    }else{
+
+        //Redireccionas a pagina 500
+    }
+
+/*====================================
+ * Datos en arreglo
+=====================================*/
+    $keywords = null;
+    foreach(json_decode($template->keywords_template, true) as $key => $value){
+
+        $keywords .=$value.", ";
+    }
+    $keywords = substr($keywords, 0, -2);
+
+/*===========================================
+    Datos en arreglo
+=============================================*/
+
+    $fontFamily = json_decode($template->fonts_template)->fontFamily;
+    $fontBody = json_decode($template->fonts_template)->fontBody;
+    $fontSlide = json_decode($template->fonts_template)->fontSlide;
+
 ?>
 
 <!DOCTYPE html>
@@ -12,12 +50,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Top Navigation + Sidebar</title>
+    <title><?php echo $template->title_template ?></title>
+
+    <meta name="description" content="<?php echo $template->description_template?>">
+    <meta name="keywords" content="<?php echo $keywords ?>">
+
+    <link rel="icon" href="<?php echo $path ?>views/assets/img/template/<?php echo $template->id_template ?>/<?php echo $template->icon_template?>"></link>
 
     <!-- Google Font: Source Sans Pro -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Condensed&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <?php echo urldecode($fontFamily) ?>
 
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="<?php echo $path ?>views/assets/css/plugins/fontawesome-free/css/all.min.css">
@@ -36,6 +77,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="<?php echo $path ?>views/assets/css/template/template.css">
 
     <link rel="stylesheet" href="<?php echo $path ?>views/assets/css/products/products.css">
+
+    <style>
+
+        body{
+            font-family: '<?php echo $fontBody ?>', sans-serif;
+        }
+
+        .slideOpt h1, .slideOpt h2, .slideOpt h3{
+            font-family: '<?php echo $fontSlide ?>', sans-serif;
+        }
+
+    </style>
     
 
     <!-- JS -->
@@ -45,6 +98,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- JDSlider -->
     <script src="<?php echo $path ?>views/assets/js/plugins/jdSlider/jdSlider.js"></script>
+
+    <!-- knob -->
+    <script src="<?php echo $path ?>views/assets/js/plugins/knob/knob.js"></script>
 
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
