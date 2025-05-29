@@ -9,6 +9,7 @@
             <div class="d-flex justify-content-center">
 
                 <a href="<?php echo $path ?>" class="navbar-brand">
+
                     <img src="<?php echo $path ?>views/assets/img/template/<?php echo $template->id_template ?>/<?php echo $template->logo_template?>" class="brand-image img-fluid py-3 px-5 p-lg-0 pe-lg-3">
                 </a>
 
@@ -18,7 +19,12 @@
 
         <div class="col-12 col-lg-7 col-xl-8 mt-1 px-3 px-lg-0">
 
+        <?php if(isset($_SESSION["admin"])): ?>
+
             <a class="nav-link float-start" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            
+        <?php endif ?>
+
                 <div class="dropdown px-1 float-start templateColor" >
 
                     <a id="dropdownSubMenu1" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">

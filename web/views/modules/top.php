@@ -1,35 +1,38 @@
+<?php
+/*=================
+DATOS DE LAS REDES SOCIALES
+====================*/
+
+$url = "socials";
+$method =  "GET";
+$fields = array();
+
+$socials = CurlController::request($url,$method,$fields);
+
+if($socials->status==200){
+
+    $socials = $socials->results;
+
+}
+
+?>
+
 <div class="container-fluid topColor">
     <div class="container">
         <div class="d-flex justify-content-between">
 
             <div class="p-2">
                 <div class="d-flex justify-content-center">
-                    <div class="p-2">
-                            <a href="#" target="_blank" class="text-white">
-                                <i class="fab fa-facebook-f"></i>
-                            </a>
-                    </div>
-                        
-                    
-                    <div class="p-2">
-                            <a href="#" target="_blank" class="text-white">
-                                <i class="fab fa-youtube"></i>
-                            </a>
-                    </div>
-                        
 
-                    <div class="p-2">
-                            <a href="#" target="_blank" class="text-white">
-                                <i class="fab fa-twitter"></i>
-                            </a>
-                    </div>
-                        
-                    
-                    <div class="p-2">
-                            <a href="#" target="_blank" class="text-white">
-                                <i class="fab fa-instagram"></i>
-                            </a>
-                    </div>
+                    <?php foreach ($socials as $key => $value): ?>
+
+                        <div class="p-2">
+                                <a href="<?php echo $value->url_social ?>" target="_blank">
+                                    <i class="<?php echo $value->icon_social ?> <?php echo $value->color_social ?>"></i>
+                                </a>
+                        </div>
+                    <?php endforeach?>
+
                 </div>
             </div>
 

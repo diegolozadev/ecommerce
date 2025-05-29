@@ -1,0 +1,7 @@
+options ALL -Indexes
+options -MultiViews
+
+RewriteEngine on
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [QSA,L]

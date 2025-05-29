@@ -23,7 +23,7 @@ class CurlController
         CURLOPT_POSTFIELDS => $fields,
         CURLOPT_HTTPHEADER => array(
             'Authorization: SSDFzdg235dsgsdfAsa44SDFGDFDadg'
-        ),
+            ),
         ));
 
         $response = curl_exec($curl);

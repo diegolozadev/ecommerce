@@ -1,16 +1,35 @@
 <?php
-/**
+/*=========================================
+ * Iniciar variables de Sesión
+===========================================*/
+ob_start();
+session_start();
+
+/*=========================================
  * Variabla Path
- */
+===========================================*/
     $path = TemplateController::path();
 
-/**
+/*=========================================
+ * Capturar las rutas de la URL
+===========================================*/
+
+$routesArray = explode("/",$_SERVER["REQUEST_URI"]);
+array_shift($routesArray);
+
+foreach ($routesArray as $key => $value){
+    $routesArray[$key] = explode("?",$value)[0];
+};
+
+
+/*===========================================
  * Solicitud GET de Template
- */
+=============================================*/
     $url = "templates?linkTo=active_template&equalTo=ok";
     $method =  "GET";
     $fields = array();
     $template = CurlController::request($url,$method,$fields);
+
     
     if($template->status == 200){
 
@@ -38,6 +57,14 @@
     $fontFamily = json_decode($template->fonts_template)->fontFamily;
     $fontBody = json_decode($template->fonts_template)->fontBody;
     $fontSlide = json_decode($template->fonts_template)->fontSlide;
+    
+/*===========================================
+    Datos en JSON
+=============================================*/
+
+$topColor = json_decode($template->colors_template)[0]->top;
+$templateColor = json_decode($template->colors_template)[1]->template;
+
 
 ?>
 
@@ -71,6 +98,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- JDSlider -->
     <link rel="stylesheet" href="<?php echo $path ?>views/assets/css/plugins/jdSlider/jdSlider.css">
 
+    <!-- Notie Alert -->
+    <link rel="stylesheet" href="<?php echo $path ?>views/assets/css/plugins/notie/notie.min.css">
+
     <!-- Theme style -->
     <link rel="stylesheet" href="<?php echo $path ?>views/assets/css/plugins/adminlte/adminlte.min.css">
 
@@ -81,11 +111,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <style>
 
         body{
-            font-family: '<?php echo $fontBody ?>', sans-serif;
+            font-family:<?php echo $fontBody ?>, sans-serif;
         }
 
         .slideOpt h1, .slideOpt h2, .slideOpt h3{
-            font-family: '<?php echo $fontSlide ?>', sans-serif;
+            font-family:<?php echo $fontSlide ?>, sans-serif;
+        }
+
+        .templateColor, a.templateColor {
+            background: <?php echo $templateColor->background; ?> !important;
+            color: <?php echo $templateColor->color; ?> !important;
+        }
+        .topColor, a.topColor {
+            background: <?php echo $topColor->background; ?> !important;
+            color: <?php echo $topColor->color; ?> !important;
         }
 
     </style>
@@ -102,6 +141,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- knob -->
     <script src="<?php echo $path ?>views/assets/js/plugins/knob/knob.js"></script>
 
+    <!-- Carpeta Alerts -->
+    <script src="<?php echo $path ?>views/assets/js/alerts/alerts.js"></script>
+
+    <!-- Notie Alerts -->
+    <script src="<?php echo $path ?>views/assets/js/plugins/notie/notie.min.js"></script>
+
+    <!-- Sweet Alerts -->
+    <script src="<?php echo $path ?>views/assets/js/plugins/sweetalert/sweetalert.min.js"></script>
+
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -116,11 +164,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
             //**Incluimos el navbar.php */
             include 'views/modules/navbar.php';
 
-            //**Incluimos el sidebar.php */
-            include 'views/modules/sidebar.php'; 
+            if(isset($_SESSION["admin"])){
+                //**Incluimos el sidebar.php */
+                include 'views/modules/sidebar.php';
+            }
 
-            //**Incluimos el home.php */
-            include 'pages/home/home.php'; 
+            if(!empty($routesArray[0])) {
+
+                if($routesArray[0] == "admin" ||
+                    $routesArray[0] == "salir"){
+                    
+                    //**Incluimos el admin.php */
+                    include "pages/".$routesArray[0]."/".$routesArray[0].".php"; 
+                }
+            }else{
+                    //**Incluimos el home.php */
+                    include "pages/home/home.php"; 
+            }
 
             //**Incluimos el footer.php */
             include 'views/modules/footer.php';

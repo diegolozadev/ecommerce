@@ -101,32 +101,14 @@
         <div class="float-end">
                         
             <div class="d-flex justify-content-center" style="line-height: 0px;">
-                    <div class="p-2">
-                        <a href="#" target="_blank" class="text-white">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                    </div>
-                            
-                        
-                    <div class="p-2">
-                        <a href="#" target="_blank" class="text-white">
-                            <i class="fab fa-youtube"></i>
-                        </a>
-                    </div>
-                            
+                <?php foreach ($socials as $key => $value): ?>
 
                     <div class="p-2">
-                        <a href="#" target="_blank" class="text-white">
-                            <i class="fab fa-twitter"></i>
-                        </a>
+                            <a href="<?php echo $value->url_social ?>" target="_blank">
+                                <i class="<?php echo $value->icon_social ?> <?php echo $value->color_social ?>"></i>
+                            </a>
                     </div>
-                            
-                        
-                    <div class="p-2">
-                        <a href="#" target="_blank" class="text-white">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                    </div>
+                <?php endforeach?>
             </div>
         </div>
         <!-- Default to the left -->
