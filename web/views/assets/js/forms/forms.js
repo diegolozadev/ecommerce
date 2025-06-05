@@ -1,7 +1,7 @@
-/*========================================
- * VALIDACIÓN BOOTSTRAP 5
-==========================================*/
-
+/*=============================================
+Validación Bootstrap 5
+=============================================*/
+// Disable form submissions if there are invalid fields
 (function() {
 'use strict';
 window.addEventListener('load', function() {
@@ -20,55 +20,114 @@ window.addEventListener('load', function() {
 }, false);
 })();
 
-/*========================================
- *FUNCIÓN PARA VALIDAR FORMULARIOS
-==========================================*/
+/*=============================================
+Función para validar formularios
+=============================================*/
 
 function validateJS(event, type){
 
-    if(type == "email"){
+$(event.target).parent().addClass("was-validated");
 
-        let pattern =  /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+if(type == "email"){
 
-        if(!pattern.test(event.target.value)){
-
-            $(event.target).parent().addClass("was-validated");
-            $(event.target).parent().children(".invalid-feedback").html("El correo electronico está mal escrito");
-            event.target.value = "";
-            return;
-        }
+    var pattern = /^[.a-zA-Z0-9_]+([.][.a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}$/;
     
+    if(!pattern.test(event.target.value)){
+
+    $(event.target).parent().children(".invalid-feedback").html("El correo electrónico está mal escrito");
+
+    event.target.value = "";
+
+    return;
+
     }
+
 }
 
-/*========================================
- *FUNCIÓN PARA RECORDAR EMAIL EN EL LOGIN
-==========================================*/
+if(type == "text"){
+
+    var pattern = /^[A-Za-zñÑáéíóúÁÉÍÓÚ ]{1,}$/;
+    
+    if(!pattern.test(event.target.value)){
+
+    $(event.target).parent().children(".invalid-feedback").html("El campo solo debe llevar texto");
+
+    event.target.value = "";
+
+    return;
+
+    }
+
+}
+
+if(type == "password"){
+
+    var pattern = /^[*\\$\\!\\¡\\?\\¿\\.\\_\\#\\-\\0-9A-Za-z]{1,}$/;
+    
+    if(!pattern.test(event.target.value)){
+
+    $(event.target).parent().children(".invalid-feedback").html("La contraseña no puede llevar ciertos caracteres especiales");
+
+    event.target.value = "";
+
+    return;
+
+    }
+
+}
+
+if(type == "complete"){
+
+    var pattern = /^[-\\(\\)\\=\\%\\&\\$\\;\\_\\*\\"\\'\\#\\?\\¿\\!\\¡\\:\\,\\.\\/\\0-9a-zA-ZñÑáéíóúÁÉÍÓÚ ]{1,}$/;
+    
+    if(!pattern.test(event.target.value)){
+
+    $(event.target).parent().children(".invalid-feedback").html("La entrada tiene errores de caracteres especiales");
+
+    event.target.value = "";
+
+    return;
+
+    }
+
+}
+
+}
+
+/*=============================================
+Función para recordar email en el login
+=============================================*/
 
 function rememberEmail(event){
 
-    if(event.target.checked){
+if(event.target.checked){
 
-        localStorage.setItem("emailAdmin", $('[name = "loginAdminEmail"]').val());
-        localStorage.setItem("checkRem", true);
-    }else{
+    localStorage.setItem("emailAdmin", $('[name="loginAdminEmail"]').val());
+    localStorage.setItem("checkRem", true);
 
-        localStorage.removeItem("emailAdmin");
-        localStorage.removeItem("checkRem");
-    }
+}else{
+
+    localStorage.removeItem("emailAdmin");
+    localStorage.removeItem("checkRem");
+
+}
+
 }
 
 function getEmail(){
 
-    if(localStorage.getItem("emailAdmin") != null){
+if(localStorage.getItem("emailAdmin") != null){
 
-        $('[name="loginAdminEmail"]').val(localStorage.getItem("emailAdmin"));
-    }
+    $('[name="loginAdminEmail"]').val(localStorage.getItem("emailAdmin"));
 
-    if(localStorage.getItem("checkRem") != null && localStorage.getItem("checkRem") ){
+}
 
-        $("#remember").attr("checked", true);
-    }
+if(localStorage.getItem("checkRem") != null && localStorage.getItem("checkRem")){
+
+    $("#remember").attr("checked", true);
+
+}
+
 }
 
 getEmail();

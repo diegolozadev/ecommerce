@@ -27,6 +27,7 @@ class AdminsController{
 
                     echo '<script>
 
+                        localStorage.setItem("token-admin", "'.$login->results[0]->token_admin.'");
                         location.reload();
                     
                     </script>';
@@ -72,6 +73,7 @@ class AdminsController{
     ============================*/
 
     public function resetPassword(){
+
         
         if(isset($_POST["resetPassword"])){
 
@@ -117,6 +119,39 @@ class AdminsController{
 
                         echo '<pre>'; print_r($newPassword); echo '</pre>';
                         echo '<pre>'; print_r($crypt); echo '</pre>';
+
+                        $subject = 'Solicitud de nueva contraseña - Entelequia Store';
+                        $email = $_POST["resetPassword"];
+
+                        $tittle = "Solicitud de nueva contraseña";
+
+                        $message = '<h4 style="font-weight: 100; color: #999; padding: 0px 20px;"><strong>Su nueva contraseña:'.$newPassword.'</strong></h4>
+
+                        <h4 style="font-weight: 100; color: #999; padding: 0px 20px;">Ingrese nuevamente al sitio con esta contraseña y recuerde cambiarla en el panel de perfil de usuario</h4>';
+                        
+                        $link = TemplateController::path().'admin';
+
+                        $senEmail = TemplateController::sendEmail($subject, $email, $tittle, $message, $link);
+
+                        if($senEmail == "Ok"){
+
+                            echo '<script>
+
+                                fncFormatInputs();
+                                fncNotie("success", "Su contraseña ha sido enviada con éxito, por favor revise su correo");
+                            
+                            
+                            </script>';
+                        }else{
+
+                            echo '<script>
+
+                                fncFormatInputs();
+                                fncNotie("error", "'.$senEmail. '");
+                            
+                            
+                            </script>';
+                        }
                     }
 
 
@@ -134,6 +169,169 @@ class AdminsController{
         }
 
     }
+
+    /*=============================================
+	Gestión Administradores
+	=============================================*/
+
+    public function adminManage(){
+
+		if(isset($_POST["name_admin"])){
+
+			echo '<script>
+
+				fncSweetAlert("loading", "", "");
+
+			</script>';
+
+			if(preg_match( '/^[.a-zA-Z0-9_]+([.][.a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}$/', $_POST["email_admin"] ) 
+				&& preg_match( '/^[A-Za-zñÑáéíóúÁÉÍÓÚ ]{1,}$/', $_POST["name_admin"] )){
+
+				if(isset($_POST["idAdmin"])){
+
+					if($_POST["password_admin"] != ""){
+
+						if(preg_match('/^[*\\$\\!\\¡\\?\\¿\\.\\_\\#\\-\\0-9A-Za-z]{1,}$/', $_POST["password_admin"] )){
+
+							$crypt = crypt($_POST["password_admin"], '$2a$07$azybxcags23425sdg23sdfhsd$');
+
+						}else{
+
+							echo '<script>
+
+								fncFormatInputs();
+								fncToastr("error","La contraseña no puede llevar ciertos caracteres especiales");
+
+							</script>';	
+						}
+
+					}else{
+
+						$crypt = $_POST["oldPassword"];
+
+					}
+
+					$url = "admins?id=".base64_decode($_POST["idAdmin"])."&nameId=id_admin&token=".$_SESSION["admin"]->token_admin."&table=admins&suffix=admin";
+					$method = "PUT";
+					$fields = "name_admin=".trim(TemplateController::capitalize($_POST["name_admin"]))."&rol_admin=".$_POST["rol_admin"]."&email_admin=".$_POST["email_admin"]."&password_admin=".$crypt;
+
+					$updateData = CurlController::request($url, $method, $fields);
+
+					if($updateData->status == 200){
+
+						echo '<script>
+
+								fncFormatInputs();
+								fncSweetAlert("success","Sus datos han sido actualizados con éxito","/admin/administradores");
+				
+							</script>';	
+
+					}else{
+
+						if($updateData->status == 303){	
+
+							echo '<script>
+
+								fncFormatInputs();
+								fncSweetAlert("error","Token expirado, vuelva a iniciar sesión","/salir");
+
+							</script>';		
+
+						}else{
+
+							echo '<script>
+
+								fncFormatInputs();
+								fncToastr("error","Ocurrió un error mientras se guardaban los datos, intente de nuevo");
+
+							</script>';	
+
+						}
+
+					}
+
+
+				}else{
+
+					if(preg_match('/^[*\\$\\!\\¡\\?\\¿\\.\\_\\#\\-\\0-9A-Za-z]{1,}$/', $_POST["password_admin"] )){
+
+						$crypt = crypt($_POST["password_admin"], '$2a$07$azybxcags23425sdg23sdfhsd$');
+
+					}else{
+
+						echo '<script>
+
+							fncFormatInputs();
+							fncToastr("error","La contraseña no puede llevar ciertos caracteres especiales");
+
+						</script>';	
+					}
+				
+					$url = "admins?token=".$_SESSION["admin"]->token_admin."&table=admins&suffix=admin";
+					$method = "POST";
+
+					$fields = array(
+						
+						"name_admin" => trim(TemplateController::capitalize($_POST["name_admin"])),
+						"rol_admin" => $_POST["rol_admin"],
+						"email_admin" => $_POST["email_admin"],
+						"password_admin" => $crypt,
+						"date_created_admin" => date("Y-m-d")
+
+					);
+
+					$createData = CurlController::request($url, $method, $fields);
+
+					if($createData->status == 200){
+
+						echo '<script>
+
+								fncFormatInputs();
+								fncSweetAlert("success","Sus datos han sido creados con éxito","/admin/administradores");
+				
+							</script>';	
+
+					}else{
+
+						if($createData->status == 303){	
+
+							echo '<script>
+
+								fncFormatInputs();
+								fncSweetAlert("error","Token expirado, vuelva a iniciar sesión","/salir");
+
+							</script>';		
+
+						}else{
+
+							echo '<script>
+
+								fncFormatInputs();
+								fncToastr("error","Ocurrió un error mientras se guardaban los datos, intente de nuevo");
+
+							</script>';	
+
+						}
+
+					}
+
+				}
+
+			}else{
+
+				echo '<script>
+
+					fncFormatInputs();
+					fncToastr("error","Error en los campos del formulario");
+
+				</script>';	
+
+
+			}
+
+		}
+
+	}
 }
 
 
