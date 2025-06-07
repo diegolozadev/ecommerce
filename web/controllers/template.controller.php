@@ -1,102 +1,111 @@
 <?php
 
-
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\Exception; 
 
 class TemplateController{
 
-    //Vista principal de la Plantilla
-    public function index(){
-        require_once 'views/template.php';
-    }
+	/*=============================================
+	Traemos la Vista Principal de la plantilla
+	=============================================*/
 
-    /*==================================
-    Ruta principal
-    ====================================*/
-    static public function path(){
+	public function index(){
 
-        if(!empty($_SERVER["HTTPS"]) && ("on" == $_SERVER["HTTPS"])){
-        
-            return "https://".$_SERVER["SERVER_NAME"]."/";  
-        }else{
-            return "http://".$_SERVER["SERVER_NAME"]."/";
-        }
-    }
+		include "views/template.php";
+	}
 
-    /*==================================
-    Función para enviar correos electrónicos
-    ====================================*/
-    static public function sendEmail($subject, $email, $title, $message, $link){
+	/*=============================================
+	Ruta Principal o Dominio del sitio
+	=============================================*/
 
-        date_default_timezone_set("America/Bogota");
+	static public function path(){
 
-        $mail = new PHPMailer;
+		if(!empty($_SERVER["HTTPS"]) && ("on" == $_SERVER["HTTPS"])){
 
-        $mail->CharSet = 'utf-8';
-        //$mail->Encoding = 'base64'; //Habilitar al subir el sistema a un Hosting
+			return "https://".$_SERVER["SERVER_NAME"]."/";
 
-        $mail->isMail();
+		}else{
 
-        $mail->UseSendmailOptions = 0;
+			return "http://".$_SERVER["SERVER_NAME"]."/";
+		}
 
-        $mail->setFrom("noreply@ecommerce.com", "Ecommerce");
+	}
 
-        $mail->Subject = $subject;
+	/*=============================================
+	Función para enviar correos electrónicos
+	=============================================*/
 
-        $mail->addAddress($email);
+	static public function sendEmail($subject, $email, $title, $message, $link){
 
-        $mail->msgHTML('<div style="width: 100%; background: #eee; position: relative; font-family: sans-serif; padding-top: 40px;
-    padding-bottom: 40px;">
+		date_default_timezone_set("America/Bogota");
 
-        <div style="position: relative; margin:auto; width: 600px; background:white; padding: 20px;">
+		$mail = new PHPMailer;
 
-            <center>
-                <img src="'.TemplateController::path().'views/assets/img/template/1/logo.png" style="padding: 20ox; width: 30%;">
+		$mail->CharSet = 'utf-8';
+		//$mail->Encoding = 'base64'; //Habilitar al subir el sistema a un hosting
 
-                <h3 style="font-weight: 100; color: #999;">'.$title.'</h3>
+		$mail->isMail();
 
-                <hr style="border: 1px solid #ccc; width: 80%">
+		$mail->UseSendmailOptions = 0;
 
-                '.$message.'
+		$mail->setFrom("noreply@ecommerce.com","Ecommerce");
 
-                <a href="'.$link.'" target="_blank" style="text-decoration: none;">
+		$mail->Subject = $subject;
 
-                    <div style="line-height: 25px; background: #000; width: 60%; padding: 10px; color: white; border-radius: 5px;">Haz clic aquí</div>
-                </a>
+		$mail->addAddress($email);
 
-                <br>
+		$mail->msgHTML('<div style="width:100%; background:#eee; position:relative; font-family:sans-serif; padding-top:40px; padding-bottom: 40px;">
+		
+			<div style="position:relative; margin:auto; width:600px; background:white; padding:20px">
+				
+				<center>
+					
+					<img src="'.TemplateController::path().'views/assets/img/template/1/logo.png" style="padding:20px; width:30%">
 
-                <hr style="border: 1px solid #ccc; width: 80%">
+					<h3 style="font-weight:100; color:#999">'.$title.'</h3>
 
-                <h5 style="font-weight: 100; color: #999;">Si no solicitó el envio de este correo, comuniquese con nosotros de inmediato</h5>
+					<hr style="border:1px solid #ccc; width:80%">
 
-            </center>
+					'.$message.'
 
-        </div>
+					<a href="'.$link.'" target="_blank" style="text-decoration: none;">
+						
+						<div style="line-height:25px; background:#000; width:60%; padding:10px; color:white; border-radius:5px">Haz clic aquí</div>
+					</a>
 
+					<br>
 
-    </div>');
+					<hr style="border:1px solid #ccc; width:80%">
 
-        $send = $mail->Send();
+					<h5 style="font-weight:100; color:#999">Si no solicitó el envío de este correo, comuniquese con nosotros de inmediato.</h5>
 
-        if(!$send){
+				</center>
 
-            return $mail->ErrorInfo;
+			</div>
 
-        }else{
+		</div>');
 
-            return 'Ok';
-        }
+		$send = $mail->Send();
 
-    }
+		if(!$send){
 
-    /*======================================
-     * FUNCIÓN PARA LIMPIAR HTML
-     *========================================*/
-    static public function htmlClean($code){
+			return $mail->ErrorInfo;	
+		
+		}else{
 
-        $search = array('/\>[^\S ]+/s','/[^\S ]+\</s','/(\s)+/s');
+			return "ok";
+
+		}
+
+	}
+
+	/*=============================================
+	Función Limpiar HTML
+	=============================================*/	
+
+	static public function htmlClean($code){
+
+		$search = array('/\>[^\S ]+/s','/[^\S ]+\</s','/(\s)+/s');
 
 		$replace = array('>','<','\\1');
 
@@ -105,16 +114,164 @@ class TemplateController{
 		$code = str_replace("> <", "><", $code);
 
 		return $code;
-    }
+	}
 
-    /*=============================================
-    Función para mayúscula inicial
-    =============================================*/
+	/*=============================================
+	Función para mayúscula inicial
+	=============================================*/
 
-    static public function capitalize($value){
+	static public function capitalize($value){
 
-        $value = mb_convert_case($value, MB_CASE_TITLE, "UTF-8");
-        return $value;
+		$value = mb_convert_case($value, MB_CASE_TITLE, "UTF-8");
+	    return $value;
+
+	}
+
+	/*=============================================
+	Función Reducir texto
+	=============================================*/
+
+	static public function reduceText($value, $limit){
+
+		if(strlen($value) > $limit){
+
+			$value = substr($value, 0, $limit)."...";
+
+		}
+
+		return $value;
+
+	}
+
+	/*=============================================
+	Función para almacenar imágenes
+	=============================================*/
+
+	static public function saveImage($image,$folder,$name,$width,$height){
+
+		if(isset($image["tmp_name"]) && !empty($image["tmp_name"])){ 
+
+			/*=============================================
+			Configuramos la ruta del directorio donde se guardará la imagen
+			=============================================*/
+
+			$directory = strtolower("views/".$folder);
+
+			/*=============================================
+			Preguntamos primero si no existe el directorio, para crearlo
+			=============================================*/
+
+			if(!file_exists($directory)){
+
+				mkdir($directory, 0755);
+
+			}
+
+			/*=============================================
+			Capturar ancho y alto original de la imagen
+			=============================================*/
+
+			list($lastWidth, $lastHeight) = getimagesize($image["tmp_name"]);
+
+
+			if($lastWidth < $width || $lastHeight < $height){
+
+				$lastWidth = $width;
+				$lastHeight = $height;
+
+			}
+
+			/*=============================================
+			De acuerdo al tipo de imagen aplicamos las funciones por defecto
+			=============================================*/
+
+			if($image["type"] == "image/jpeg"){
+
+				//definimos nombre del archivo
+				$newName = $name.'.jpg';
+
+				//definimos el destino donde queremos guardar el archivo
+				$folderPath = $directory.'/'.$newName;
+
+				if(isset($image["mode"]) && $image["mode"] == "base64"){
+
+					file_put_contents($folderPath, file_get_contents($image["tmp_name"]));
+
+				}else{
+
+					//Crear una copia de la imagen
+					$start = imagecreatefromjpeg($image["tmp_name"]);
+
+					//Instrucciones para aplicar a la imagen definitiva
+					$end = imagecreatetruecolor($width, $height);
+
+					imagecopyresized($end,  $start,  0, 0,  0, 0,$width, $height, $lastWidth, $lastHeight);
+
+					imagejpeg($end, $folderPath);
+
+				}
+
+
+			}
+
+			if($image["type"] == "image/png"){
+
+				//definimos nombre del archivo
+				$newName  = $name.'.png';
+
+				//definimos el destino donde queremos guardar el archivo
+				$folderPath = $directory.'/'.$newName;
+
+				if(isset($image["mode"]) && $image["mode"] == "base64"){
+
+					file_put_contents($folderPath, file_get_contents($image["tmp_name"]));
+
+				}else{
+
+					//Crear una copia de la imagen
+					$start = imagecreatefrompng($image["tmp_name"]);
+
+					//Instrucciones para aplicar a la imagen definitiva
+					$end = imagecreatetruecolor($width, $height);
+
+					imagealphablending($end, FALSE);
+					
+					imagesavealpha($end, TRUE);	
+
+					imagecopyresampled($end, $start, 0, 0, 0, 0, $width, $height, $lastWidth, $lastHeight);
+
+					imagepng($end, $folderPath);
+
+				}
+
+
+			}
+
+			if($image["type"] == "image/gif"){
+
+				$newName = $name.'.gif';
+
+				$folderPath = $directory.'/'.$newName;	
+
+				if(isset($image["mode"]) && $image["mode"] == "base64"){
+
+					file_put_contents($folderPath, file_get_contents($image["tmp_name"]));
+
+				}else{
+					
+					move_uploaded_file($image["tmp_name"], $folderPath);
+
+				}	
+
+			}
+
+			return $newName;
+
+		}else{
+
+			return "error";
+
+		}
 
 	}
 

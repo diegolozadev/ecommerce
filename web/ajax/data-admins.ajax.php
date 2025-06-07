@@ -10,8 +10,8 @@ class DatatableController{
 		if(!empty($_POST)){
 
 			/*=============================================
-			Capturando y organizando las variables POST de DT
-			=============================================*/
+            Capturando y organizando las variables POST de DT
+            =============================================*/
 
 			$draw = $_POST["draw"]; //Contador utilizado por DataTables para garantizar que los retornos de Ajax de las solicitudes de procesamiento del lado del servidor sean dibujados en secuencia por DataTables 
 			// echo '<pre>$draw '; print_r($draw); echo '</pre>';
@@ -32,97 +32,109 @@ class DatatableController{
 			// echo '<pre>$length '; print_r($length); echo '</pre>';
 
 			/*=============================================
-			El total de registros de la data
-			=============================================*/
+            El total de registros de la data
+            =============================================*/
 
-			$url = "admins?select=id_admin";
-			$method = "GET";
-			$fields = array();
+            $url = "admins?select=id_admin";
+            $method = "GET";
+            $fields = array();
 
-			$response = CurlController::request($url, $method, $fields);
+            $response = CurlController::request($url, $method, $fields);
 
-			if($response->status == 200){
+            if($response->status == 200){
 
-				$totalData = $response->total;
-			
-			}else{
+            	$totalData = $response->total;
+            
+            }else{
 
-				echo '{"data":[]}';
+            	echo '{
+            		"Draw": 1,
+					"recordsTotal": 0,
+				    "recordsFiltered": 0,
+				    "data":[]}';
 
-				return;
+            	return;
 
-			}
+            }
 
-			$select = "id_admin,rol_admin,name_admin,email_admin,date_updated_admin";
+            $select = "id_admin,rol_admin,name_admin,email_admin,date_updated_admin";
 
-			/*=============================================
-			Búsqueda de datos
-			=============================================*/	
+            /*=============================================
+           	Búsqueda de datos
+            =============================================*/	
 
-			if(!empty($_POST['search']['value'])){	
+            if(!empty($_POST['search']['value'])){	
 
-				if(preg_match('/^[0-9A-Za-zñÑáéíóú ]{1,}$/',$_POST['search']['value'])){
+            	if(preg_match('/^[0-9A-Za-zñÑáéíóú ]{1,}$/',$_POST['search']['value'])){
 
-					$linkTo = ["name_admin", "email_admin", "rol_admin"];
+            		$linkTo = ["name_admin", "email_admin", "rol_admin"];
 
-					$search = str_replace(" ","_",$_POST['search']['value']);
+            		$search = str_replace(" ","_",$_POST['search']['value']);
 
-					foreach ($linkTo as $key => $value) {
-						
-						$url = "admins?select=".$select."&linkTo=".$value."&search=".$search."&orderBy=".$orderBy."&orderMode=".$orderType."&startAt=".$start."&endAt=".$length;
+            		foreach ($linkTo as $key => $value) {
+            			
+            			$url = "admins?select=".$select."&linkTo=".$value."&search=".$search."&orderBy=".$orderBy."&orderMode=".$orderType."&startAt=".$start."&endAt=".$length;
 
-						$data = CurlController::request($url, $method, $fields)->results;
+	            		$data = CurlController::request($url, $method, $fields)->results;
 
-						if($data == "Not Found"){
+	            		if($data == "Not Found"){
 
-							$data = array();
-							$recordsFiltered = 0;
-						
-						}else{
+	            			$data = array();
+	            			$recordsFiltered = 0;
+	            		
+	            		}else{
 
-							$recordsFiltered = count($data);
-							break;
-						}
-					}
+	            			$recordsFiltered = count($data);
+	            			break;
+	            		}
+            		}
 
-				}else{
+            	}else{
 
-					echo '{"data": []}';
+            		echo '{
+            		"Draw": 1,
+					"recordsTotal": 0,
+				    "recordsFiltered": 0,
+				    "data":[]}';
 
-					return;
+                	return;
 
-				}
+            	}
 
-			}else{
+            }else{
 
-				/*=============================================
-				Seleccionar datos
-				=============================================*/
+	            /*=============================================
+	            Seleccionar datos
+	            =============================================*/
 
-				$url = "admins?select=".$select."&orderBy=".$orderBy."&orderMode=".$orderType."&startAt=".$start."&endAt=".$length;
-				$data = CurlController::request($url, $method, $fields)->results;
+	            $url = "admins?select=".$select."&orderBy=".$orderBy."&orderMode=".$orderType."&startAt=".$start."&endAt=".$length;
+	            $data = CurlController::request($url, $method, $fields)->results;
 
-				$recordsFiltered = $totalData;
+	            $recordsFiltered = $totalData;
 
-			}
-		
-			/*=============================================
-			Cuando la data viene vacía
-			=============================================*/
+	        }
+           
+            /*=============================================
+            Cuando la data viene vacía
+            =============================================*/
 
-			if(empty($data)){
+             if(empty($data)){
 
-				echo '{"data": []}';
+            	echo '{
+            		"Draw": 1,
+					"recordsTotal": 0,
+				    "recordsFiltered": 0,
+				    "data":[]}';
 
-				return;
+            	return;
 
-			}
+            }
 
-			/*=============================================
-			Construimos el dato JSON a regresar
-			=============================================*/
+            /*=============================================
+            Construimos el dato JSON a regresar
+            =============================================*/
 
-			$dataJson = '{
+            $dataJson = '{
 				"Draw": '.intval($draw).',
 				"recordsTotal": '.$totalData.',
 				"recordsFiltered": '.$recordsFiltered.',
@@ -133,9 +145,9 @@ class DatatableController{
 					$name_admin = $value->name_admin;
 					$email_admin = $value->email_admin;
 					$rol_admin = $value->rol_admin;
-					$date_updated_admin = $value->date_updated_admin;
+            		$date_updated_admin = $value->date_updated_admin;
 					
-					$actions = "<div class='btn-group'>
+            		$actions = "<div class='btn-group'>
 									<a href='/admin/administradores/gestion?admin=".base64_encode($value->id_admin)."' class='btn bg-purple border-0 rounded-pill mr-2 btn-sm px-3'>
 										<i class='fas fa-pencil-alt text-white'></i>
 									</a>
