@@ -10,8 +10,8 @@ class DatatableController{
 		if(!empty($_POST)){
 
 			/*=============================================
-            Capturando y organizando las variables POST de DT
-            =============================================*/
+			Capturando y organizando las variables POST de DT
+			=============================================*/
 
 			$draw = $_POST["draw"]; //Contador utilizado por DataTables para garantizar que los retornos de Ajax de las solicitudes de procesamiento del lado del servidor sean dibujados en secuencia por DataTables 
 			// echo '<pre>$draw '; print_r($draw); echo '</pre>';
@@ -32,109 +32,109 @@ class DatatableController{
 			// echo '<pre>$length '; print_r($length); echo '</pre>';
 
 			/*=============================================
-            El total de registros de la data
-            =============================================*/
+			El total de registros de la data
+			=============================================*/
 
-            $url = "relations?rel=subcategories,categories&type=subcategory,category&select=id_subcategory";
-            $method = "GET";
-            $fields = array();
+			$url = "relations?rel=subcategories,categories&type=subcategory,category&select=id_subcategory";
+			$method = "GET";
+			$fields = array();
 
-            $response = CurlController::request($url, $method, $fields);
+			$response = CurlController::request($url, $method, $fields);
 
-            if($response->status == 200){
+			if($response->status == 200){
 
-            	$totalData = $response->total;
-            
-            }else{
+				$totalData = $response->total;
+			
+			}else{
 
-            	echo '{
-            		"Draw": 1,
+				echo '{
+					"Draw": 1,
 					"recordsTotal": 0,
-				    "recordsFiltered": 0,
-				    "data":[]}';
+					"recordsFiltered": 0,
+					"data":[]}';
 
-            	return;
+				return;
 
-            }
+			}
 
-            $select = "id_subcategory,status_subcategory,name_subcategory,url_subcategory,image_subcategory,description_subcategory,keywords_subcategory,name_category,products_subcategory,views_subcategory,date_updated_subcategory";
+			$select = "id_subcategory,status_subcategory,name_subcategory,url_subcategory,image_subcategory,description_subcategory,keywords_subcategory,name_category,products_subcategory,views_subcategory,date_updated_subcategory";
 
-            /*=============================================
-           	Búsqueda de datos
-            =============================================*/	
+			/*=============================================
+			Búsqueda de datos
+			=============================================*/	
 
-            if(!empty($_POST['search']['value'])){	
+			if(!empty($_POST['search']['value'])){	
 
-            	if(preg_match('/^[0-9A-Za-zñÑáéíóú ]{1,}$/',$_POST['search']['value'])){
+				if(preg_match('/^[0-9A-Za-zñÑáéíóú ]{1,}$/',$_POST['search']['value'])){
 
-            		$linkTo = ["name_subcategory", "url_subcategory","description_subcategory","keywords_subcategory","date_updated_subcategory,name_category"];
+					$linkTo = ["name_subcategory", "url_subcategory","description_subcategory","keywords_subcategory","date_updated_subcategory,name_category"];
 
-            		$search = str_replace(" ","_",$_POST['search']['value']);
+					$search = str_replace(" ","_",$_POST['search']['value']);
 
-            		foreach ($linkTo as $key => $value) {
-            			
-            			$url = "relations?rel=subcategories,categories&type=subcategory,category&select=".$select."&linkTo=".$value."&search=".$search."&orderBy=".$orderBy."&orderMode=".$orderType."&startAt=".$start."&endAt=".$length;
+					foreach ($linkTo as $key => $value) {
+						
+						$url = "relations?rel=subcategories,categories&type=subcategory,category&select=".$select."&linkTo=".$value."&search=".$search."&orderBy=".$orderBy."&orderMode=".$orderType."&startAt=".$start."&endAt=".$length;
 
-	            		$data = CurlController::request($url, $method, $fields)->results;
+						$data = CurlController::request($url, $method, $fields)->results;
 
-	            		if($data == "Not Found"){
+						if($data == "Not Found"){
 
-	            			$data = array();
-	            			$recordsFiltered = 0;
-	            		
-	            		}else{
+							$data = array();
+							$recordsFiltered = 0;
+						
+						}else{
 
-	            			$recordsFiltered = count($data);
-	            			break;
-	            		}
-            		}
+							$recordsFiltered = count($data);
+							break;
+						}
+					}
 
-            	}else{
+				}else{
 
-            		echo '{
-            		"Draw": 1,
+					echo '{
+					"Draw": 1,
 					"recordsTotal": 0,
-				    "recordsFiltered": 0,
-				    "data":[]}';
+					"recordsFiltered": 0,
+					"data":[]}';
 
-                	return;
+					return;
 
-            	}
+				}
 
-            }else{
+			}else{
 
-	            /*=============================================
-	            Seleccionar datos
-	            =============================================*/
+				/*=============================================
+				Seleccionar datos
+				=============================================*/
 
-	            $url = "relations?rel=subcategories,categories&type=subcategory,category&select=".$select."&orderBy=".$orderBy."&orderMode=".$orderType."&startAt=".$start."&endAt=".$length;
-	            $data = CurlController::request($url, $method, $fields)->results;
-	            
-	            $recordsFiltered = $totalData;
+				$url = "relations?rel=subcategories,categories&type=subcategory,category&select=".$select."&orderBy=".$orderBy."&orderMode=".$orderType."&startAt=".$start."&endAt=".$length;
+				$data = CurlController::request($url, $method, $fields)->results;
+				
+				$recordsFiltered = $totalData;
 
-	        }
+			}
 
-            /*=============================================
-            Cuando la data viene vacía
-            =============================================*/
+			/*=============================================
+			Cuando la data viene vacía
+			=============================================*/
 
-             if(empty($data)){
+			if(empty($data)){
 
-            	echo '{
-            		"Draw": 1,
+				echo '{
+					"Draw": 1,
 					"recordsTotal": 0,
-				    "recordsFiltered": 0,
-				    "data":[]}';
+					"recordsFiltered": 0,
+					"data":[]}';
 
-            	return;
+				return;
 
-            }
+			}
 
-            /*=============================================
-            Construimos el dato JSON a regresar
-            =============================================*/
+			/*=============================================
+			Construimos el dato JSON a regresar
+			=============================================*/
 
-            $dataJson = '{
+			$dataJson = '{
 				"Draw": '.intval($draw).',
 				"recordsTotal": '.$totalData.',
 				"recordsFiltered": '.$recordsFiltered.',
@@ -143,21 +143,21 @@ class DatatableController{
 				foreach ($data as $key => $value) {
 
 					/*=============================================
-            		STATUS
-            		=============================================*/
+					STATUS
+					=============================================*/
 
-            		if($value->status_subcategory == 1){
+					if($value->status_subcategory == 1){
 
-	            		$status_subcategory = "<input type='checkbox' data-size='mini' data-bootstrap-switch data-off-color='danger' data-on-color='dark' checked='true' idItem='".base64_encode($value->id_subcategory)."' table='subcategories' column='subcategory'>";
+						$status_subcategory = "<input type='checkbox' data-size='mini' data-bootstrap-switch data-off-color='danger' data-on-color='dark' checked='true' idItem='".base64_encode($value->id_subcategory)."' table='subcategories' column='subcategory'>";
 
-	            	}else{
+					}else{
 
-	            		$status_subcategory = "<input type='checkbox' data-size='mini' data-bootstrap-switch data-off-color='danger' data-on-color='dark' idItem='".base64_encode($value->id_subcategory)."' table='subcategories' column='subcategory'>";
-	            	}
+						$status_subcategory = "<input type='checkbox' data-size='mini' data-bootstrap-switch data-off-color='danger' data-on-color='dark' idItem='".base64_encode($value->id_subcategory)."' table='subcategories' column='subcategory'>";
+					}
 
-            		/*=============================================
-            		TEXTOS
-            		=============================================*/
+					/*=============================================
+					TEXTOS
+					=============================================*/
 
 					$name_subcategory = $value->name_subcategory;
 
@@ -183,9 +183,9 @@ class DatatableController{
 
 					$views_subcategory = "<span class='badge badge-warning rounded-pill px-3 py-1'><i class='fas fa-eye'></i> ".$value->views_subcategory."</span>";
 
-            		$date_updated_subcategory = $value->date_updated_subcategory;
+					$date_updated_subcategory = $value->date_updated_subcategory;
 					
-            		$actions = "<div class='btn-group'>
+					$actions = "<div class='btn-group'>
 									<a href='/admin/subcategorias/gestion?subcategory=".base64_encode($value->id_subcategory)."' class='btn bg-purple border-0 rounded-pill mr-2 btn-sm px-3'>
 										<i class='fas fa-pencil-alt text-white'></i>
 									</a>

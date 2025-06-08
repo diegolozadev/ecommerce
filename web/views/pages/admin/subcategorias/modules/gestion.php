@@ -27,7 +27,7 @@ if(isset($_GET["subcategory"])){
 }
 
 
- ?>
+?>
 
 
 <div class="content pb-5">
@@ -116,38 +116,38 @@ if(isset($_GET["subcategory"])){
 
 										<?php 
 
-										 	$url = "categories?select=id_category,name_category";
+											$url = "categories?select=id_category,name_category";
 											$method = "GET";
-						                	$fields = array();
+											$fields = array();
 
-						                	$categories = CurlController::request($url, $method, $fields);
+											$categories = CurlController::request($url, $method, $fields);
 
-						                	if($categories->status == 200){
+											if($categories->status == 200){
 
-						                		$categories = $categories->results;
-						                	
-						                	}else{
+												$categories = $categories->results;
+											
+											}else{
 
-						                		$categories = array();
-						                	}
+												$categories = array();
+											}
 
 										?>
 
 										<select
-					                    class="custom-select"
-					                    name="id_category_subcategory"
-					                    id="id_category_subcategory"
-					                    required>
+										class="custom-select"
+										name="id_category_subcategory"
+										id="id_category_subcategory"
+										required>
 
-					                    	<option value="">Selecciona Categoría</option>
+											<option value="">Selecciona Categoría</option>
 
-					                    	<?php foreach ($categories as $key => $value): ?>
+											<?php foreach ($categories as $key => $value): ?>
 
-					                    		<option value="<?php echo $value->id_category ?>" <?php if (!empty($subcategory) && $subcategory->id_category_subcategory == $value->id_category): ?> selected <?php endif ?>><?php echo $value->name_category ?></option>
-					                    		
-					                    	<?php endforeach ?>
+												<option value="<?php echo $value->id_category ?>" <?php if (!empty($subcategory) && $subcategory->id_category_subcategory == $value->id_category): ?> selected <?php endif ?>><?php echo $value->name_category ?></option>
+												
+											<?php endforeach ?>
 
-					                	</select>
+										</select>
 
 									</div>
 
@@ -308,27 +308,27 @@ if(isset($_GET["subcategory"])){
 
 										</label>
 
-										 <div class="custom-file">
-										 	
-										 	<input 
-										 	type="file"
-										 	class="custom-file-input"
-										 	id="image_subcategory"
-										 	name="image_subcategory"
-										 	accept="image/*"
-										 	maxSize="2000000"
-										 	onchange="validateImageJS(event,'changeImage')"
-										 	<?php if (empty($subcategory)): ?>
-										 	required	
-										 	<?php endif ?>
-										 	>
+										<div class="custom-file">
+											
+											<input 
+											type="file"
+											class="custom-file-input"
+											id="image_subcategory"
+											name="image_subcategory"
+											accept="image/*"
+											maxSize="2000000"
+											onchange="validateImageJS(event,'changeImage')"
+											<?php if (empty($subcategory)): ?>
+											required	
+											<?php endif ?>
+											>
 
-										 	<div class="valid-feedback">Válido.</div>
-	            							<div class="invalid-feedback">Por favor llena este campo correctamente.</div>
+											<div class="valid-feedback">Válido.</div>
+											<div class="invalid-feedback">Por favor llena este campo correctamente.</div>
 
-					                        <label class="custom-file-label" for="image_subcategory">Buscar Archivo</label>
+											<label class="custom-file-label" for="image_subcategory">Buscar Archivo</label>
 
-										 </div>
+										</div>
 
 									</div>
 
@@ -391,10 +391,10 @@ if(isset($_GET["subcategory"])){
 													<h6 class="text-left text-primary mb-1 metaTitle">
 
 														<?php if (!empty($subcategory)): ?>
-													    	<?php echo $subcategory->name_subcategory ?>
-													    <?php else: ?>
-													    	Lorem ipsum dolor sit
-													    <?php endif ?>
+															<?php echo $subcategory->name_subcategory ?>
+														<?php else: ?>
+															Lorem ipsum dolor sit
+														<?php endif ?>
 
 													</h6>
 
@@ -413,8 +413,8 @@ if(isset($_GET["subcategory"])){
 													<p class="text-left small mb-1 metaDescription">
 
 														<?php if (!empty($subcategory)): ?>
-													    	<?php echo $subcategory->description_subcategory ?>
-													    <?php else: ?>
+															<?php echo $subcategory->description_subcategory ?>
+														<?php else: ?>
 															Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ducimus impedit ipsam obcaecati voluptas unde error quod odit ad sapiente vitae.
 														<?php endif ?> 
 													</p>

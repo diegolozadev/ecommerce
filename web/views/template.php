@@ -65,7 +65,7 @@ Datos en Arreglo
 $keywords = null;
 
 foreach (json_decode($template->keywords_template, true) as $key => $value) {
- 
+
   $keywords .= $value.", ";
   
 }
@@ -129,7 +129,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Material Preloader -->
   <link rel="stylesheet" href="<?php echo $path ?>views/assets/css/plugins/material-preloader/material-preloader.css">
 
-   <!-- Tags Input -->
+  <!-- Tags Input -->
   <link rel="stylesheet" href="<?php echo $path ?>views/assets/css/plugins/tags-input/tags-input.css">
 
   <!-- DataTables -->
@@ -144,7 +144,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Codemirror -->
   <link rel="stylesheet" href="<?php echo $path ?>views/assets/css/plugins/codemirror/codemirror.min.css">
 
-   <!-- Dropzone -->
+  <!-- Dropzone -->
   <link rel="stylesheet" href="<?php echo $path ?>views/assets/css/plugins/dropzone/dropzone.css">
 
   <!-- FlexSlider -->
@@ -223,7 +223,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- https://www.jqueryscript.net/demo/Google-Inbox-Style-Linear-Preloader-Plugin-with-jQuery-CSS3/ -->
   <script src="<?php echo $path ?>views/assets/js/plugins/material-preloader/material-preloader.js"></script>
 
-   <!-- Tags-Input -->
+  <!-- Tags-Input -->
   <!-- https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/examples/ -->
   <script src="<?php echo $path ?>views/assets/js/plugins/tags-input/tags-input.js"></script>
 
@@ -281,7 +281,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <input type="hidden" id="urlPath" value="<?php echo $path ?>">
 <div class="wrapper">
 
-	<?php 
+  <?php 
 
   include "modules/top.php"; 
   include "modules/navbar.php"; 
@@ -299,8 +299,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     =============================================*/
 
     if($routesArray[0] == "admin" ||
-       $routesArray[0] == "salir" ||
-       $routesArray[0] == "no-found"){
+      $routesArray[0] == "salir" ||
+      $routesArray[0] == "no-found"){
 
       include "pages/".$routesArray[0]."/".$routesArray[0].".php";
 
@@ -350,8 +350,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
             =============================================*/
           
             if($routesArray[0] == "free" ||
-               $routesArray[0] == "most-seen" ||
-               $routesArray[0] == "most-sold"){
+              $routesArray[0] == "most-seen" ||
+              $routesArray[0] == "most-sold"){
 
                 include "pages/products/products.php";
 
@@ -372,9 +372,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 $search = CurlController::request($url,$method,$fields);
 
                 if($search->status == 200){
-   
+  
                   include "pages/products/products.php";
-                 
+                
                   break;
 
                 }//Finaliza Filtro de búsqueda

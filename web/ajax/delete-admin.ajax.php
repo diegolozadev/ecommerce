@@ -4,21 +4,21 @@ require_once "../controllers/curl.controller.php";
 
 class DeleteController{
 
-	public $token;
+    public $token;
     public $table;
     public $id;
     public $nameId;
 
     public function ajaxDelete(){
 
-    	if($this->table == "admins" && base64_decode($this->id) == "1"){
+        if($this->table == "admins" && base64_decode($this->id) == "1"){
 
-			echo "no-borrar";
+            echo "no-borrar";
             return;	
 
-    	}
+        }
 
-       if($this->table == "categories"){
+    if($this->table == "categories"){
 
             $select = "url_category,image_category,subcategories_category";
             $url = "categories?linkTo=id_category&equalTo=".base64_decode($this->id)."&select=".$select; 
@@ -50,9 +50,9 @@ class DeleteController{
 
             rmdir("../views/assets/img/categories/".$dataItem->url_category);
 
-       }
+    }
 
-       if($this->table == "subcategories"){
+    if($this->table == "subcategories"){
 
             $select = "url_subcategory,image_subcategory,products_subcategory,id_category_subcategory";
             $url = "subcategories?linkTo=id_subcategory&equalTo=".base64_decode($this->id)."&select=".$select; 
@@ -101,11 +101,11 @@ class DeleteController{
 
             $updateCategory = CurlController::request($url, $method, $fields);
                 
-       }
+    }
 
-       if($this->table == "products"){
+    if($this->table == "products"){
 
-           $select = "url_product,image_product,id_category_product,id_subcategory_product";
+        $select = "url_product,image_product,id_category_product,id_subcategory_product";
             $url = "products?linkTo=id_product&equalTo=".base64_decode($this->id)."&select=".$select; 
             $method = "GET";
             $fields = array();
@@ -124,7 +124,7 @@ class DeleteController{
 
             rmdir("../views/assets/img/products/".$dataItem->url_product);
 
-             /*=============================================
+            /*=============================================
             Quitar producto vinculado a categoria
             =============================================*/ 
 
@@ -141,7 +141,7 @@ class DeleteController{
 
             $updateCategory = CurlController::request($url, $method, $fields);
 
-             /*=============================================
+            /*=============================================
             Quitar producto vinculado a subcategoria
             =============================================*/
                 
@@ -158,7 +158,7 @@ class DeleteController{
 
             $updateSubcategory = CurlController::request($url, $method, $fields);
 
-       }
+    }
 
 
         if($this->table == "variants"){
@@ -177,8 +177,8 @@ class DeleteController{
             if($dataItem->type_variant == "gallery"){
 
                 foreach(json_decode($dataItem->media_variant) as $file){           
- 
-                   unlink('../views/assets/img/products/'.$dataItem->url_product.'/'.$file); 
+
+                unlink('../views/assets/img/products/'.$dataItem->url_product.'/'.$file); 
                     
                 }
 
@@ -186,13 +186,13 @@ class DeleteController{
 
         }
 
-    	$url = $this->table."?id=".base64_decode($this->id)."&nameId=".$this->nameId."&token=".$this->token."&table=admins&suffix=admin";
-    	$method ="DELETE";
-    	$fields = array();
+        $url = $this->table."?id=".base64_decode($this->id)."&nameId=".$this->nameId."&token=".$this->token."&table=admins&suffix=admin";
+        $method ="DELETE";
+        $fields = array();
 
         $delete= CurlController::request($url, $method, $fields);
         
-    	echo $delete->status;
+        echo $delete->status;
 
     }
 

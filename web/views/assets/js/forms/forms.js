@@ -77,7 +77,7 @@ function validateDataRepeat(event, type){
         $(event.target).parent().addClass("was-validated");
         $(event.target).parent().children(".invalid-feedback").html("Este nombre ya existe en la base de datos");
 
-         event.target.value = "";
+        event.target.value = "";
 
         return;
       }
@@ -238,7 +238,7 @@ function getEmail(){
 
   }
 
-   if(localStorage.getItem("checkRem") != null && localStorage.getItem("checkRem")){
+  if(localStorage.getItem("checkRem") != null && localStorage.getItem("checkRem")){
 
     $("#remember").attr("checked", true);
 
@@ -260,19 +260,19 @@ function addIcon(event){
 
     $(".myInputIcon").on("keyup", function(){
 
-       var value = $(this).val().toLowerCase();
+      var value = $(this).val().toLowerCase();
 
-       $(".btnChangeIcon").filter(function(){
+      $(".btnChangeIcon").filter(function(){
 
           $(this).toggle($(this).attr("mode").toLowerCase().indexOf(value) > -1)
-       
-       })
+      
+      })
 
     })
 
   })
 
-   $(document).on("click",".btnChangeIcon", function(e){
+  $(document).on("click",".btnChangeIcon", function(e){
 
       e.preventDefault();
 
@@ -280,15 +280,15 @@ function addIcon(event){
       $(event.target).val($(this).attr("mode"))
       $("#myIcon").hide();    
 
-   })
+  })
 
 }
 
 $(document).on("click",'[data-bs-dismiss="modal"]',function(){
 
-   var modal = $(".modal");
+  var modal = $(".modal");
 
-   modal.each((i)=>{
+  modal.each((i)=>{
 
         $(modal[i]).hide()
 
@@ -303,7 +303,7 @@ Tags Input
 if($('.tags-input').length > 0){
 
   $('.tags-input').tagsinput({
-     maxTags: 5
+    maxTags: 5
   });
 
 }
@@ -459,7 +459,7 @@ if($('.summernote').length > 0){
           upload(files[i])
 
         }
- 
+
       }
 
     }
@@ -513,7 +513,7 @@ function upload(file){
                 
           case "size":
 
-               fncNotie(
+              fncNotie(
                   3,
                   "Error: la imagen debe pesar menos de 10MB"
               );    
@@ -552,7 +552,7 @@ function upload(file){
         $image.css('width', '100%');
       
       }); 
-     
+    
       console.log("response", response);
 
     },
@@ -666,25 +666,25 @@ function initDropzone(item){
           elem.parent().children(".galleryProduct_"+item).val(JSON.stringify(arrayFiles));
 
         },500*countArrayFiles) 
-       
+      
 
       })
 
-       myDropzone = this;
+      myDropzone = this;
 
-       $(".saveBtn").click(function(){
+      $(".saveBtn").click(function(){
 
-           if(arrayFiles.length == 0 &&  $("[name='type_variant_"+item+"']").val() == "gallery" && $(".idVariant").length == 0){
+          if(arrayFiles.length == 0 &&  $("[name='type_variant_"+item+"']").val() == "gallery" && $(".idVariant").length == 0){
 
             fncToastr("error","La galería no puede estar vacía");
             
-           }else{
+          }else{
 
               myDropzone.processQueue();
 
           }
 
-       })
+      })
 
     }
 
@@ -810,8 +810,8 @@ $(document).on("click",".addVariant", function(){
               <div class="input-group mb-3 inputVideo_${variantItem}" style="display:none">
                 
                 <span class="input-group-text">
-                   <i class="fas fa-clipboard-list"></i>
-                 </span>  
+                  <i class="fas fa-clipboard-list"></i>
+                </span>  
 
                 <input 
                 type="text" 
@@ -897,12 +897,12 @@ $(document).on("click",".addVariant", function(){
 
     </div>
 
-   `)
+  `)
 
 $('[name="totalVariants"]').val(variantItem);
   
-   initDropzone(variantItem);
- 
+  initDropzone(variantItem);
+
 
 })
 

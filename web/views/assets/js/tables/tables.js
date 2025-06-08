@@ -7,12 +7,12 @@ if($(".adminsTable").length > 0){
   var url = "/ajax/data-admins.ajax.php";
 
   var columns = [
-     {"data":"id_admin"},
-     {"data":"name_admin"},
-     {"data":"email_admin"},
-     {"data":"rol_admin"},
-     {"data":"date_updated_admin"},
-     {"data":"actions", "orderable":false, "searchable":false}
+    {"data":"id_admin"},
+    {"data":"name_admin"},
+    {"data":"email_admin"},
+    {"data":"rol_admin"},
+    {"data":"date_updated_admin"},
+    {"data":"actions", "orderable":false, "searchable":false}
   ]
 
   var order = [0,"desc"];
@@ -29,18 +29,18 @@ if($(".categoriesTable").length > 0){
   var url = "/ajax/data-categories.ajax.php";
 
   var columns = [
-     {"data":"id_category"},
-     {"data":"status_category"},
-     {"data":"name_category"},
-     {"data":"url_category"},
-     {"data":"image_category"},
-     {"data":"description_category"},
-     {"data":"keywords_category"},
-     {"data":"subcategories_category"},
-     {"data":"products_category"},
-     {"data":"views_category"},
-     {"data":"date_updated_category"},
-     {"data":"actions", "orderable":false, "searchable":false}
+    {"data":"id_category"},
+    {"data":"status_category"},
+    {"data":"name_category"},
+    {"data":"url_category"},
+    {"data":"image_category"},
+    {"data":"description_category"},
+    {"data":"keywords_category"},
+    {"data":"subcategories_category"},
+    {"data":"products_category"},
+    {"data":"views_category"},
+    {"data":"date_updated_category"},
+    {"data":"actions", "orderable":false, "searchable":false}
   ]
 
   var order = [0,"desc"];
@@ -56,18 +56,18 @@ if($(".subcategoriesTable").length > 0){
   var url = "/ajax/data-subcategories.ajax.php";
 
   var columns = [
-     {"data":"id_subcategory"},
-     {"data":"status_subcategory"},
-     {"data":"name_subcategory"},
-     {"data":"url_subcategory"},
-     {"data":"image_subcategory"},
-     {"data":"description_subcategory"},
-     {"data":"keywords_subcategory"},
-     {"data":"name_category"},
-     {"data":"products_subcategory"},
-     {"data":"views_subcategory"},
-     {"data":"date_updated_subcategory"},
-     {"data":"actions", "orderable":false, "searchable":false}
+    {"data":"id_subcategory"},
+    {"data":"status_subcategory"},
+    {"data":"name_subcategory"},
+    {"data":"url_subcategory"},
+    {"data":"image_subcategory"},
+    {"data":"description_subcategory"},
+    {"data":"keywords_subcategory"},
+    {"data":"name_category"},
+    {"data":"products_subcategory"},
+    {"data":"views_subcategory"},
+    {"data":"date_updated_subcategory"},
+    {"data":"actions", "orderable":false, "searchable":false}
   ]
 
   var order = [0,"desc"];
@@ -83,18 +83,18 @@ if($(".productsTable").length > 0){
   var url = "/ajax/data-products.ajax.php";
 
   var columns = [
-     {"data":"id_product"},
-     {"data":"status_product"},
-     {"data":"name_product"},
-     {"data":"url_product"},
-     {"data":"image_product"},
-     {"data":"description_product"},
-     {"data":"keywords_product"},
-     {"data":"name_category"},
-     {"data":"name_subcategory"},
-     {"data":"views_product"},
-     {"data":"date_updated_product"},
-     {"data":"actions", "orderable":false, "searchable":false}
+    {"data":"id_product"},
+    {"data":"status_product"},
+    {"data":"name_product"},
+    {"data":"url_product"},
+    {"data":"image_product"},
+    {"data":"description_product"},
+    {"data":"keywords_product"},
+    {"data":"name_category"},
+    {"data":"name_subcategory"},
+    {"data":"views_product"},
+    {"data":"date_updated_product"},
+    {"data":"actions", "orderable":false, "searchable":false}
   ]
 
   var order = [0,"desc"];
@@ -114,8 +114,8 @@ $("#tables").DataTable({
 "processing":true,
 "serverSide": true,
 "ajax":{
-	"url":url,
-	"type": "POST"
+  "url":url,
+  "type": "POST"
 },
 "columns":columns,
 "language":{
@@ -158,7 +158,7 @@ $(document).on("click",".deleteItem", function(){
   var rol =  $(this).attr("rol");
 
   fncSweetAlert("confirm","¿Está seguro de borrar este item?","").then(resp=>{
-   
+  
     if(resp){
 
       fncMatPreloader("on");
@@ -209,7 +209,7 @@ $(document).on("click",".deleteItem", function(){
               fncToastr("warning","Este item no se puede borrar porque tiene productos vinculados");
             
             }else{
-               
+              
               fncMatPreloader("off");
               fncToastr("warning","Este item no se puede borrar");
 
@@ -244,7 +244,7 @@ $("#tables").on("draw.dt", function(){
       $(this).bootstrapSwitch({
 
         onSwitchChange: function(event, state){
-         
+        
           var idItem = $(event.target).attr("idItem");
           var table = $(event.target).attr("table");
           var column =  $(event.target).attr("column");
@@ -279,7 +279,7 @@ $("#tables").on("draw.dt", function(){
             processData: false,
             success: function (response){
 
-             if(response == 200){
+            if(response == 200){
 
                 fncMatPreloader("off");
                 fncToastr(

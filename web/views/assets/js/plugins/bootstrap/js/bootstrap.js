@@ -1981,8 +1981,8 @@
     return Dropdown;
   }();
   /**
-   * Data API implementation
-   */
+    * Data API implementation
+    */
 
 
   $__default["default"](document).on(EVENT_KEYDOWN_DATA_API, SELECTOR_DATA_TOGGLE$2, Dropdown._dataApiKeydownHandler).on(EVENT_KEYDOWN_DATA_API, SELECTOR_MENU, Dropdown._dataApiKeydownHandler).on(EVENT_CLICK_DATA_API$2 + " " + EVENT_KEYUP_DATA_API, Dropdown._clearMenus).on(EVENT_CLICK_DATA_API$2, SELECTOR_DATA_TOGGLE$2, function (event) {
@@ -1994,8 +1994,8 @@
     e.stopPropagation();
   });
   /**
-   * jQuery
-   */
+    * jQuery
+    */
 
   $__default["default"].fn[NAME$6] = Dropdown._jQueryInterface;
   $__default["default"].fn[NAME$6].Constructor = Dropdown;
@@ -2006,8 +2006,8 @@
   };
 
   /**
-   * Constants
-   */
+    * Constants
+    */
 
   var NAME$5 = 'modal';
   var VERSION$5 = '4.6.1';
@@ -2055,8 +2055,8 @@
     show: 'boolean'
   };
   /**
-   * Class definition
-   */
+    * Class definition
+    */
 
   var Modal = /*#__PURE__*/function () {
     function Modal(element, config) {
@@ -2176,10 +2176,10 @@
         return $__default["default"](htmlElement).off(EVENT_KEY$5);
       });
       /**
-       * `document` has 2 events `EVENT_FOCUSIN` and `EVENT_CLICK_DATA_API`
-       * Do not move `document` in `htmlElements` array
-       * It will remove `EVENT_CLICK_DATA_API` event that should remain
-       */
+        * `document` has 2 events `EVENT_FOCUSIN` and `EVENT_CLICK_DATA_API`
+        * Do not move `document` in `htmlElements` array
+        * It will remove `EVENT_CLICK_DATA_API` event that should remain
+        */
 
       $__default["default"](document).off(EVENT_FOCUSIN);
       $__default["default"].removeData(this._element, DATA_KEY$5);
@@ -2565,8 +2565,8 @@
     return Modal;
   }();
   /**
-   * Data API implementation
-   */
+    * Data API implementation
+    */
 
 
   $__default["default"](document).on(EVENT_CLICK_DATA_API$1, SELECTOR_DATA_TOGGLE$1, function (event) {
@@ -2601,8 +2601,8 @@
     Modal._jQueryInterface.call($__default["default"](target), config, this);
   });
   /**
-   * jQuery
-   */
+    * jQuery
+    */
 
   $__default["default"].fn[NAME$5] = Modal._jQueryInterface;
   $__default["default"].fn[NAME$5].Constructor = Modal;
@@ -2613,11 +2613,11 @@
   };
 
   /**
-   * --------------------------------------------------------------------------
-   * Bootstrap (v4.6.1): tools/sanitizer.js
-   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
-   * --------------------------------------------------------------------------
-   */
+    * --------------------------------------------------------------------------
+    * Bootstrap (v4.6.1): tools/sanitizer.js
+    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+    * --------------------------------------------------------------------------
+    */
   var uriAttrs = ['background', 'cite', 'href', 'itemtype', 'longdesc', 'poster', 'src', 'xlink:href'];
   var ARIA_ATTRIBUTE_PATTERN = /^aria-[\w-]*$/i;
   var DefaultWhitelist = {
@@ -2654,17 +2654,17 @@
     ul: []
   };
   /**
-   * A pattern that recognizes a commonly useful subset of URLs that are safe.
-   *
-   * Shoutout to Angular https://github.com/angular/angular/blob/12.2.x/packages/core/src/sanitization/url_sanitizer.ts
-   */
+    * A pattern that recognizes a commonly useful subset of URLs that are safe.
+    *
+    * Shoutout to Angular https://github.com/angular/angular/blob/12.2.x/packages/core/src/sanitization/url_sanitizer.ts
+    */
 
   var SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file|sms):|[^#&/:?]*(?:[#/?]|$))/i;
   /**
-   * A pattern that matches safe data URLs. Only matches image, video and audio types.
-   *
-   * Shoutout to Angular https://github.com/angular/angular/blob/12.2.x/packages/core/src/sanitization/url_sanitizer.ts
-   */
+    * A pattern that matches safe data URLs. Only matches image, video and audio types.
+    *
+    * Shoutout to Angular https://github.com/angular/angular/blob/12.2.x/packages/core/src/sanitization/url_sanitizer.ts
+    */
 
   var DATA_URL_PATTERN = /^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[\d+/a-z]+=*$/i;
 
@@ -2735,8 +2735,8 @@
   }
 
   /**
-   * Constants
-   */
+    * Constants
+    */
 
   var NAME$4 = 'tooltip';
   var VERSION$4 = '4.6.1';
@@ -2814,8 +2814,8 @@
     MOUSELEAVE: "mouseleave" + EVENT_KEY$4
   };
   /**
-   * Class definition
-   */
+    * Class definition
+    */
 
   var Tooltip = /*#__PURE__*/function () {
     function Tooltip(element, config) {
@@ -3432,8 +3432,8 @@
     return Tooltip;
   }();
   /**
-   * jQuery
-   */
+    * jQuery
+    */
 
 
   $__default["default"].fn[NAME$4] = Tooltip._jQueryInterface;
@@ -3445,8 +3445,8 @@
   };
 
   /**
-   * Constants
-   */
+    * Constants
+    */
 
   var NAME$3 = 'popover';
   var VERSION$3 = '4.6.1';
@@ -3484,8 +3484,8 @@
     MOUSELEAVE: "mouseleave" + EVENT_KEY$3
   };
   /**
-   * Class definition
-   */
+    * Class definition
+    */
 
   var Popover = /*#__PURE__*/function (_Tooltip) {
     _inheritsLoose(Popover, _Tooltip);
@@ -3606,8 +3606,8 @@
     return Popover;
   }(Tooltip);
   /**
-   * jQuery
-   */
+    * jQuery
+    */
 
 
   $__default["default"].fn[NAME$3] = Popover._jQueryInterface;
@@ -3619,8 +3619,8 @@
   };
 
   /**
-   * Constants
-   */
+    * Constants
+    */
 
   var NAME$2 = 'scrollspy';
   var VERSION$2 = '4.6.1';
@@ -3654,8 +3654,8 @@
     target: '(string|element)'
   };
   /**
-   * Class definition
-   */
+    * Class definition
+    */
 
   var ScrollSpy = /*#__PURE__*/function () {
     function ScrollSpy(element, config) {
@@ -3876,8 +3876,8 @@
     return ScrollSpy;
   }();
   /**
-   * Data API implementation
-   */
+    * Data API implementation
+    */
 
 
   $__default["default"](window).on(EVENT_LOAD_DATA_API, function () {
@@ -3891,8 +3891,8 @@
     }
   });
   /**
-   * jQuery
-   */
+    * jQuery
+    */
 
   $__default["default"].fn[NAME$2] = ScrollSpy._jQueryInterface;
   $__default["default"].fn[NAME$2].Constructor = ScrollSpy;
@@ -3903,8 +3903,8 @@
   };
 
   /**
-   * Constants
-   */
+    * Constants
+    */
 
   var NAME$1 = 'tab';
   var VERSION$1 = '4.6.1';
@@ -3930,8 +3930,8 @@
   var SELECTOR_DROPDOWN_TOGGLE = '.dropdown-toggle';
   var SELECTOR_DROPDOWN_ACTIVE_CHILD = '> .dropdown-menu .active';
   /**
-   * Class definition
-   */
+    * Class definition
+    */
 
   var Tab = /*#__PURE__*/function () {
     function Tab(element) {
@@ -4105,8 +4105,8 @@
     return Tab;
   }();
   /**
-   * Data API implementation
-   */
+    * Data API implementation
+    */
 
 
   $__default["default"](document).on(EVENT_CLICK_DATA_API, SELECTOR_DATA_TOGGLE, function (event) {
@@ -4115,8 +4115,8 @@
     Tab._jQueryInterface.call($__default["default"](this), 'show');
   });
   /**
-   * jQuery
-   */
+    * jQuery
+    */
 
   $__default["default"].fn[NAME$1] = Tab._jQueryInterface;
   $__default["default"].fn[NAME$1].Constructor = Tab;
@@ -4127,8 +4127,8 @@
   };
 
   /**
-   * Constants
-   */
+    * Constants
+    */
 
   var NAME = 'toast';
   var VERSION = '4.6.1';
@@ -4156,8 +4156,8 @@
     delay: 'number'
   };
   /**
-   * Class definition
-   */
+    * Class definition
+    */
 
   var Toast = /*#__PURE__*/function () {
     function Toast(element, config) {
@@ -4326,8 +4326,8 @@
     return Toast;
   }();
   /**
-   * jQuery
-   */
+    * jQuery
+    */
 
 
   $__default["default"].fn[NAME] = Toast._jQueryInterface;
